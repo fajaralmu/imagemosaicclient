@@ -15,8 +15,11 @@
     <p *ngIf="loading"><i>Please wait...</i></p>
     <div *ngIf="error" class="alert alert-danger">Error, please try again</div>
     <img *ngIf="imageData" [src]="imageData" class="img" width={{600}}/>
-    <h4 *ngIf="imageDataResult">Result</h4>
-    <img *ngIf="imageDataResult" [src]="imageDataResult" class="img" width={{600}}/>
+    <div *ngIf="imageDataResult">
+    <h4 >Result</h4>
+    <p>zoom (+) to see mosaic clearly</p>
+    <img  [src]="imageDataResult" class="img" width={{600}}/>
+</div>
   </div>
 </div>
 </form>

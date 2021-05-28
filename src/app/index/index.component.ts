@@ -29,11 +29,11 @@ export class IndexComponent implements OnInit {
   removeImage(): void {
     this.imageData = undefined;
   }
-  scrollBottom = () => {
+  scrollBottom()   {
     const opt: ScrollToOptions = { top: document.body.scrollHeight, behavior: 'smooth' };
-    doItLater(() => { window.scrollTo(opt); }, 100);
+    doItLater(function(){ window.scrollTo(opt); }, 100);
   }
-  handleResult(response:WebResponse) {
+  handleResult = (response:WebResponse) => {
     this.scrollBottom();
     this.imageDataResult = response.imageData;
     this.loading = false;
@@ -45,6 +45,7 @@ export class IndexComponent implements OnInit {
     this.service.generateMosaic(this.imageData).subscribe(this.handleResult, (error)=>{
       this.loading = false;
       this.error = true;
+      this.imageDataResult = undefined;
     });
   }
   toBase64(fileInput: HTMLInputElement): Promise<any> {
