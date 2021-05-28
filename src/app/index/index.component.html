@@ -1,0 +1,8 @@
+<div class="alert alert-info">
+    Welcome
+</div>
+<input type="file" class="form-control"
+    (change)="onChange($event)"
+/>
+<a (click)="onChange($event)" class="btn btn-info">Click</a>
+<app-heroes [sampleHero]="sampleHero"></app-heroes>
