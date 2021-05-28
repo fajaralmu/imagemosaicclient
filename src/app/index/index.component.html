@@ -2,15 +2,20 @@
 <form (ngSubmit)="$event.preventDefault()">
 <div class="row">
   <div class="col-md-4">
-    <input type="file" class="form-control" (change)="changeImage($event)" />
+    <input type="file" accept="image/*" class="form-control" (change)="changeImage($event)" />
     <p></p>
     <div class="btn-group">
         <button (click)="removeImage()" class="btn btn-danger">Remove</button>
         <button (click)="submit()" class="btn btn-primary">Process</button>
     </div>
   </div>
-  <div class="col-md-8" *ngIf="imageData">
-    <img [src]="imageData" class="img" width={{600}}/>
+  <div class="col-md-8">
+    <h4>Preview</h4>
+    <p *ngIf="!imageData"><i>No Preview</i></p>
+    <p *ngIf="loading"><i>Please wait...</i></p>
+    <img *ngIf="imageData" [src]="imageData" class="img" width={{600}}/>
+    <h4 *ngIf="imageDataResult">Result</h4>
+    <img *ngIf="imageDataResult" [src]="imageDataResult" class="img" width={{600}}/>
   </div>
 </div>
 </form>
