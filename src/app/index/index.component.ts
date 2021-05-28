@@ -17,6 +17,7 @@ export class IndexComponent implements OnInit {
   imageData?: string;
   imageDataResult?: string;
   loading:boolean = false;
+  error:boolean = false;
 
   ngOnInit(): void { }
   changeImage(e: Event): void {
@@ -32,13 +33,18 @@ export class IndexComponent implements OnInit {
     const opt: ScrollToOptions = { top: document.body.scrollHeight, behavior: 'smooth' };
     doItLater(() => { window.scrollTo(opt); }, 100);
   }
+  handleResult(response:WebResponse) {
+    this.scrollBottom();
+    this.imageDataResult = response.imageData;
+    this.loading = false;
+  }
   submit(): void {
     if (!this.imageData) return;
     this.loading = true;
-    this.service.generateMosaic(this.imageData).subscribe((response: WebResponse) => {
-      this.scrollBottom();
-      this.imageDataResult = response.imageData;
+    this.error = false;
+    this.service.generateMosaic(this.imageData).subscribe(this.handleResult, (error)=>{
       this.loading = false;
+      this.error = true;
     });
   }
   toBase64(fileInput: HTMLInputElement): Promise<any> {

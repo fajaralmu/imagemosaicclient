@@ -13,6 +13,7 @@
     <h4>Preview</h4>
     <p *ngIf="!imageData"><i>No Preview</i></p>
     <p *ngIf="loading"><i>Please wait...</i></p>
+    <div *ngIf="error" class="alert alert-danger">Error, please try again</div>
     <img *ngIf="imageData" [src]="imageData" class="img" width={{600}}/>
     <h4 *ngIf="imageDataResult">Result</h4>
     <img *ngIf="imageDataResult" [src]="imageDataResult" class="img" width={{600}}/>
