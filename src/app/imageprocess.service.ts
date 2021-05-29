@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import WebRequest from './models/WebRequest';
 import WebResponse from './models/WebResponse';
-const url:string = "http://localhost:8080/imagemosaic/app/generatemosaic";
-    const url7:string = "https://imagemosaic.herokuapp.com/app/generatemosaic";
+const url2:string = "http://localhost:8080/imagemosaic/app/generatemosaic";
+    const url :string = "https://imagemosaic.herokuapp.com/app/generatemosaic";
 @Injectable({
   providedIn: 'root'
 })
