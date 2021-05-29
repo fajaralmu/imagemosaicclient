@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import Hero from './../models/Hero';
 import WebRequest from './../models/WebRequest';
 import { ImageprocessService } from './../imageprocess.service';
@@ -12,12 +12,15 @@ import { doItLater } from './../util/EventUtil';
 })
 export class IndexComponent implements OnInit {
 
-  constructor(private service: ImageprocessService) { }
+ 
   sampleHero: Hero = new Hero();
   imageData?: string;
   imageDataResult?: string;
-  loading:boolean = false;
-  error:boolean = false;
+  loading: boolean = false;
+  error: boolean = false;
+  constructor(private service: ImageprocessService ) {
+    
+  } 
 
   ngOnInit(): void { }
   changeImage(e: Event): void {
@@ -29,20 +32,29 @@ export class IndexComponent implements OnInit {
   removeImage(): void {
     this.imageData = undefined;
   }
-  scrollBottom()   {
+  scrollBottom() {
     const opt: ScrollToOptions = { top: document.body.scrollHeight, behavior: 'smooth' };
-    doItLater(function(){ window.scrollTo(opt); }, 100);
+    doItLater(function () { window.scrollTo(opt); }, 100);
   }
-  handleResult = (response:WebResponse) => {
-    this.scrollBottom();
-    this.imageDataResult = response.imageData;
-    this.loading = false;
+  handleResult = (response: Blob) => {
+
+    var reader = new FileReader();
+    reader.readAsDataURL(response);
+    reader.onloadend = () => {
+      if (typeof (reader.result) == 'string') {
+        this.imageDataResult = reader.result; 
+        this.scrollBottom();
+        this.loading = false; 
+        
+      }
+    }
   }
   submit(): void {
     if (!this.imageData) return;
     this.loading = true;
+    this.imageDataResult = undefined;
     this.error = false;
-    this.service.generateMosaic(this.imageData).subscribe(this.handleResult, (error)=>{
+    this.service.generateMosaicv2(this.imageData).subscribe(this.handleResult, (error) => {
       this.loading = false;
       this.error = true;
       this.imageDataResult = undefined;
