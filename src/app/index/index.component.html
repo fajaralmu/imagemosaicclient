@@ -1,34 +1,31 @@
 <div class="alert alert-info">Welcome</div>
 <form (ngSubmit)="$event.preventDefault()">
-<div class="row">
-  <div class="col-md-4">
-    <input type="file" accept="image/*" class="form-control" (change)="changeImage($event)" />
-    <p></p>
-    <div class="btn-group">
-        <button (click)="removeImage()" class="btn btn-danger">Remove</button>
-        <!-- <button (click)="submit()" class="btn btn-primary">Process</button> -->
-        <app-submit-button [imageData]="imageData"
-         (onResult)="handleResult($event)"
+  <div class="row">
+    <div class="col-md-4">
+      <input type="file"  accept="image/*" class="form-control"  (change)="changeImage($event)" />
+      <p></p>
+      <button *ngIf="imageData" (click)="removeImage()" class="btn btn-danger">Remove</button>
+      <p></p>
+      <app-submit-button
+        [imageData]="imageData"
+        (onResult)="handleResult($event)"
         (onError)="handleError($event)"
         (onBeforeSubmit)="preSubmit()"
-        >
-
-        </app-submit-button>
+      >
+      </app-submit-button>
+    </div>
+    <div class="col-md-8">
+      <h4>Preview</h4>
+      <hr/>
+      <p *ngIf="!imageData"><i>No Preview</i></p>
+      <img *ngIf="imageData" [src]="imageData" class="img" width="{{ 600 }}" />
+      <div *ngIf="imageDataResult">
+        <h4>Result</h4>
+        <p>zoom (+) to see mosaic clearly</p>
+        <img [src]="imageDataResult" class="img" width="{{ 600 }}" />
+      </div>
     </div>
   </div>
-  <div class="col-md-8">
-    <h4>Preview</h4>
-    <p *ngIf="!imageData"><i>No Preview</i></p>
-    <p *ngIf="loading"><i>Please wait...</i></p>
-    <div *ngIf="error" class="alert alert-danger">Error, please try again</div>
-    <img *ngIf="imageData" [src]="imageData" class="img" width={{600}}/>
-    <div *ngIf="imageDataResult">
-    <h4 >Result</h4>
-    <p>zoom (+) to see mosaic clearly</p>
-    <img  [src]="imageDataResult" class="img" width={{600}}/>
-</div>
-  </div>
-</div>
 </form>
 <p></p>
 <!-- 

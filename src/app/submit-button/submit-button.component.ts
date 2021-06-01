@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'; 
 import { ImageprocessService } from './../imageprocess.service';
+import { doItLater } from './../util/EventUtil';
 
 @Component({
   selector: 'app-submit-button',
@@ -12,21 +13,50 @@ export class SubmitButtonComponent implements OnInit {
   @Output() onResult: EventEmitter<Blob> = new EventEmitter();
   @Output() onError: EventEmitter<any> = new EventEmitter();
   @Output() onBeforeSubmit: EventEmitter<any> = new EventEmitter();
-  constructor(private service: ImageprocessService) { }
+  
+  loading:boolean = false;
+  error:boolean = false;
+  errorMessage:string = "Error";
+  
+  constructor(private service: ImageprocessService) { } 
 
   submit():void{
     if (!this.imageData) return;
+    this.loading = true;
+    this.error = false;
     this.onBeforeSubmit.emit();
     this.service.generateMosaicv2(this.imageData).subscribe(
       (response:Blob)=>{
+        this.loading = false;
+        this.error = false;
         this.onResult.emit(response);
       }
       , (error) => {
+        this.errorMessage = "Error, please try again";
+        this.loading = false;
+        this.error = true;
        this.onError.emit(error);
     });
   }
 
+  testServer(){
+    this.loading = true;
+    this.error = false;
+    
+    this.service.testServer().subscribe((response)=>{
+      this.loading = false;
+      this.error = false;
+    }, (error)=>{
+      this.error = true;
+      this.errorMessage = "Error calling server, will try again";
+      doItLater(()=>{
+        this.testServer();
+      }, 1000);
+    })
+  }
+
   ngOnInit(): void {
+    this.testServer();
   }
 
 }

@@ -14,8 +14,6 @@ export class IndexComponent implements OnInit {
   sampleHero: Hero = new Hero();
   imageData?: string;
   imageDataResult?: string;
-  loading: boolean = false;
-  error: boolean = false;
   constructor(private service: ImageprocessService ) {
     
   } 
@@ -41,20 +39,15 @@ export class IndexComponent implements OnInit {
       if (typeof (reader.result) == 'string') {
         this.imageDataResult = reader.result; 
         this.scrollBottom();
-        this.loading = false; 
         
       }
     }
   }
   handleError(error:any){
-    this.loading = false;
-    this.error = true;
     this.imageDataResult = undefined;
   }
   preSubmit(): void { 
-    this.loading = true;
     this.imageDataResult = undefined;
-    this.error = false; 
   }
   toBase64(fileInput: HTMLInputElement): Promise<any> {
     return new Promise(function (resolve, reject) {
