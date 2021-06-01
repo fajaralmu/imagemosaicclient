@@ -1,8 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import Hero from './../models/Hero';
-import WebRequest from './../models/WebRequest';
-import { ImageprocessService } from './../imageprocess.service';
-import WebResponse from './../models/WebResponse';
+import Hero from './../models/Hero'; 
+import { ImageprocessService } from './../imageprocess.service'; 
 import { doItLater } from './../util/EventUtil';
 
 @Component({
@@ -36,8 +34,7 @@ export class IndexComponent implements OnInit {
     const opt: ScrollToOptions = { top: document.body.scrollHeight, behavior: 'smooth' };
     doItLater(function () { window.scrollTo(opt); }, 100);
   }
-  handleResult = (response: Blob) => {
-
+  handleResult = (response: Blob) => { 
     var reader = new FileReader();
     reader.readAsDataURL(response);
     reader.onloadend = () => {
@@ -49,16 +46,15 @@ export class IndexComponent implements OnInit {
       }
     }
   }
-  submit(): void {
-    if (!this.imageData) return;
+  handleError(error:any){
+    this.loading = false;
+    this.error = true;
+    this.imageDataResult = undefined;
+  }
+  preSubmit(): void { 
     this.loading = true;
     this.imageDataResult = undefined;
-    this.error = false;
-    this.service.generateMosaicv2(this.imageData).subscribe(this.handleResult, (error) => {
-      this.loading = false;
-      this.error = true;
-      this.imageDataResult = undefined;
-    });
+    this.error = false; 
   }
   toBase64(fileInput: HTMLInputElement): Promise<any> {
     return new Promise(function (resolve, reject) {

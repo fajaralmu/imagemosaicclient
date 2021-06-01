@@ -3,8 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import WebRequest from './models/WebRequest';
 import WebResponse from './models/WebResponse';
-const url2:string = "http://localhost:8080/imagemosaic/app/generatemosaic";
-    const url :string = "https://imagemosaic.herokuapp.com/app/generatemosaic";
+const host:string = "http://localhost:8080/imagemosaic/";
+const host2:string =  "https://imagemosaic.herokuapp.com";
+const url:string = host+"/app/generatemosaic"; 
+const urlTest:string = host+"/app/test"; 
 @Injectable({
   providedIn: 'root'
 })
@@ -12,19 +14,14 @@ export class ImageprocessService {
 
   constructor(private http:HttpClient) { }
 
-  generateMosaic(imageData:string):Observable<WebResponse> {
-    const req:WebRequest = {
-      imageData: imageData
-    }
-    console.debug("will generate mosaic");
+  testServer():Observable<WebResponse> { 
     
-    return this.http.post<WebResponse>(url, req);
+    return this.http.get<WebResponse>(url);
   }
   generateMosaicv2(imageData:string):Observable<Blob> {
     const req:WebRequest = {
       imageData: imageData
     }
-    console.debug("will generate mosaic");
     
     return this.http.post<Blob>(url, req,  { responseType: 'blob' as 'json' });
   }

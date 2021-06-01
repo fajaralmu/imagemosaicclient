@@ -6,7 +6,14 @@
     <p></p>
     <div class="btn-group">
         <button (click)="removeImage()" class="btn btn-danger">Remove</button>
-        <button (click)="submit()" class="btn btn-primary">Process</button>
+        <!-- <button (click)="submit()" class="btn btn-primary">Process</button> -->
+        <app-submit-button [imageData]="imageData"
+         (onResult)="handleResult($event)"
+        (onError)="handleError($event)"
+        (onBeforeSubmit)="preSubmit()"
+        >
+
+        </app-submit-button>
     </div>
   </div>
   <div class="col-md-8">
