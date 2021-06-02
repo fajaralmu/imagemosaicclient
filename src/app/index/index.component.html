@@ -11,9 +11,13 @@
         (onResult)="handleResult($event)"
         (onError)="handleError($event)"
         (onBeforeSubmit)="preSubmit()"
+        (onReady)="serverReady()"
       >
       </app-submit-button>
     </div>
+    <p *ngIf="progress>0">
+      {{progress}}
+    </p>
     <div class="col-md-8">
       <h4>Preview</h4>
       <hr/>

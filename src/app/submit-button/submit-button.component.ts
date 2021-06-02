@@ -13,6 +13,7 @@ export class SubmitButtonComponent implements OnInit {
   @Output() onResult: EventEmitter<Blob> = new EventEmitter();
   @Output() onError: EventEmitter<any> = new EventEmitter();
   @Output() onBeforeSubmit: EventEmitter<any> = new EventEmitter();
+  @Output() onReady: EventEmitter<any> = new EventEmitter();
   
   loading:boolean = false;
   error:boolean = false;
@@ -32,7 +33,7 @@ export class SubmitButtonComponent implements OnInit {
         this.onResult.emit(response);
       }
       , (error) => {
-        this.errorMessage = "Error, please try again or try another image or make current image smaller"";
+        this.errorMessage = "Error, please try again or try another image or make current image smaller";
         this.loading = false;
         this.error = true;
        this.onError.emit(error);
@@ -46,6 +47,7 @@ export class SubmitButtonComponent implements OnInit {
     this.service.testServer().subscribe((response)=>{
       this.loading = false;
       this.error = false;
+      this.onReady.emit();
     }, (error)=>{
       this.error = true;
       this.errorMessage = "Error calling server, will try again";

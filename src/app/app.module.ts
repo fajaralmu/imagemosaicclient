@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AboutComponent } from './about/about.component';
 import { SubmitButtonComponent } from './submit-button/submit-button.component'; // <-- NgModel lives here
+ 
+
 @NgModule({
   declarations: [
     AppComponent,

@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import Hero from './../models/Hero'; 
 import { ImageprocessService } from './../imageprocess.service'; 
 import { doItLater } from './../util/EventUtil';
+import WebResponse from './../models/WebResponse';
 const DEFAULT_RESULT_WIDTH:number = 600;
 @Component({
   selector: 'app-index',
@@ -15,6 +16,7 @@ export class IndexComponent implements OnInit {
   imageData?: string;
   imageDataResult?: string;
   resultWidth:number = DEFAULT_RESULT_WIDTH;
+  progress:number = 0;
   constructor(private service: ImageprocessService ) {
     
   } 
@@ -53,10 +55,21 @@ export class IndexComponent implements OnInit {
       }
     }
   }
+  onProgressCallback = (body:WebResponse) => {
+    if (body.percentage >= 100) {
+      this.progress = 0;
+      return;
+    }
+    this.progress = body.percentage;
+  }
+  serverReady(){
+    this.service.connectWebsocket(this.onProgressCallback);
+  }
   handleError(error:any){
     this.imageDataResult = undefined;
   }
-  preSubmit(): void { 
+  preSubmit(): void {
+    this.progress = 0;
     this.resultWidth = DEFAULT_RESULT_WIDTH;
     this.imageDataResult = undefined;
   }
