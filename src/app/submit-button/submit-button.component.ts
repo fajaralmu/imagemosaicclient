@@ -32,7 +32,7 @@ export class SubmitButtonComponent implements OnInit {
         this.onResult.emit(response);
       }
       , (error) => {
-        this.errorMessage = "Error, please try again";
+        this.errorMessage = "Error, please try again or try another image or make current image smaller"";
         this.loading = false;
         this.error = true;
        this.onError.emit(error);
