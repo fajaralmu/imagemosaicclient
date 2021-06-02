@@ -51,7 +51,6 @@ export class IndexComponent implements OnInit {
       if (typeof (reader.result) == 'string') {
         this.imageDataResult = reader.result; 
         this.scrollBottom();
-        
       }
     }
   }
@@ -60,7 +59,7 @@ export class IndexComponent implements OnInit {
       this.progress = 0;
       return;
     }
-    this.progress = body.percentage;
+    this.progress = Math.floor(body.percentage);
   }
   serverReady(){
     this.service.connectWebsocket(this.onProgressCallback);

@@ -9,8 +9,8 @@ import { ApplicationService } from './application.service';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 
-const host:string = "http://localhost:8080/imagemosaic/";
-const host_ :string =  "https://imagemosaic.herokuapp.com/";
+const host_:string = "http://localhost:8080/imagemosaic/";
+const host :string =  "https://imagemosaic.herokuapp.com/";
 const url:string = host+"app/generatemosaic"; 
 const urlTest:string = host+"app/test"; 
 

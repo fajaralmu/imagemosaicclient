@@ -14,10 +14,11 @@
         (onReady)="serverReady()"
       >
       </app-submit-button>
+      <p *ngIf="progress>0">
+        Completing: <strong>{{progress}}%</strong>
+      </p>
     </div>
-    <p *ngIf="progress>0">
-      {{progress}}
-    </p>
+    
     <div class="col-md-8">
       <h4>Preview</h4>
       <hr/>
