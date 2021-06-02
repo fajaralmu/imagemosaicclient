@@ -21,8 +21,14 @@
       <img *ngIf="imageData" [src]="imageData" class="img" width="{{ 600 }}" />
       <div *ngIf="imageDataResult">
         <h4>Result</h4>
-        <p>zoom (+) to see mosaic clearly</p>
-        <img [src]="imageDataResult" class="img" width="{{ 600 }}" />
+        <div class="btn-group">
+          <button class="btn-dark" (click)="zoomResult(30)" >+</button>
+          <button class="btn-dark"(click)="zoomResult(-30)" >-</button>
+          <button class="btn-dark"(click)="zoomResult(0)" >Default</button>
+          
+        </div>
+        <hr/>
+        <img [src]="imageDataResult" class="img" width="{{ resultWidth }}" />
       </div>
     </div>
   </div>
