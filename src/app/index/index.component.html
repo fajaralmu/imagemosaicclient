@@ -14,9 +14,14 @@
         (onReady)="serverReady()"
       >
       </app-submit-button>
-      <p *ngIf="progress>0">
-        Completing: <strong>{{progress}}%</strong>
-      </p>
+      <div *ngIf="progress>0" >
+        <p  >
+          Completing: <strong>{{progress}}%</strong>
+        </p>
+        <div class="progress" style="height: 10px;">
+          <div class="bg-dark" role="progressbar" [ngStyle]="{'transition-duration':'500ms', 'width': progress+'%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
     </div>
     
     <div class="col-md-8">

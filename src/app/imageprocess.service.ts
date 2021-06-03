@@ -23,12 +23,12 @@ export class ImageprocessService {
   constructor(private http:HttpClient, private appService:ApplicationService) { }
   private stompClient:any = null;
   private wsConnected:boolean = false;
-  getWsHost():string {
+  get wsHost():string {
     return host+"realtime-app";
   }
   connectWebsocket(onProgressCallback:(payload:WebResponse)=>any) {
     if ( this.wsConnected) return;
-    const socket = new SockJS(this.getWsHost());
+    const socket = new SockJS(this.wsHost);
     this.stompClient = Stomp.over(socket); 
     
     this.stompClient.connect({}, (frame:any) =>{

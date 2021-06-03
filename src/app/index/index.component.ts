@@ -56,7 +56,11 @@ export class IndexComponent implements OnInit {
   }
   onProgressCallback = (body:WebResponse) => {
     if (body.percentage >= 100) {
-      this.progress = 0;
+      this.progress = 99
+      doItLater(()=>{
+        this.progress = 0;
+      },500);
+     
       return;
     }
     this.progress = Math.floor(body.percentage);
@@ -66,6 +70,7 @@ export class IndexComponent implements OnInit {
   }
   handleError(error:any){
     this.imageDataResult = undefined;
+    this.progress = 0;
   }
   preSubmit(): void {
     this.progress = 0;
